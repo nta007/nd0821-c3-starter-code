@@ -1,5 +1,10 @@
-from sklearn.metrics import fbeta_score, precision_score, recall_score
+import numpy as np
 
+from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.pipeline import Pipeline, make_pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -7,7 +12,7 @@ def train_model(X_train, y_train):
     Trains a machine learning model and returns it.
 
     Inputs
-    ------
+    ------F
     X_train : np.array
         Training data.
     y_train : np.array
@@ -17,8 +22,9 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-
-    pass
+    pipe = make_pipeline(SimpleImputer(), StandardScaler(), LogisticRegression())
+    pipe.fit(X_train, y_train)
+    return pipe
 
 
 def compute_model_metrics(y, preds):
@@ -57,4 +63,4 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
