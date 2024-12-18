@@ -11,5 +11,3 @@ cat_features = [
 
 stored_model_filepath = "../model/model.pkl"
 metrics_output_filepath = "../data/metrics.csv"
-
-
