@@ -1,12 +1,16 @@
 # import numpy as np
+import pickle
 
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.pipeline import make_pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+
 
 # Optional: implement hyperparameter tuning.
+
+def load_model(pkl_filepath):
+    with open(pkl_filepath, 'rb') as model_file:
+        return pickle.load(model_file)
 
 
 def train_model(X_train, y_train):
@@ -24,8 +28,7 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    pipe = make_pipeline(SimpleImputer(), StandardScaler(),
-                         LogisticRegression())
+    pipe = RandomForestClassifier()
     pipe.fit(X_train, y_train)
     return pipe
 

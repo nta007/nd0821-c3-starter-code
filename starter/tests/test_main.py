@@ -7,16 +7,21 @@ client = TestClient(app)
 def test_predict():
     data = {
         "workclass": "Private",
-        "education": "11th",
-        "marital-status": "Never-married",
-        "occupation": "Machine-op-inspct",
-        "relationship": "Own",
+        "education": "Bachelors",
+        "marital-status": "Married-civ-spouse",
+        "occupation": "Exec-managerial",
+        "relationship": "Husband",
         "race": "White",
-        "sex": "Female",
-        "native-country": "United-States"
+        "sex": "Male",
+        "native-country": "United-States",
+        "age": 42,
+        "fnlgt": 159449,
+        "education-num": 13,
+        "capital-gain": 5178,
+        "capital-loss": 0,
+        "hours-per-week": 40
     }
     r = client.post("/predict", json=data)
-    print(r.json())
     assert r.status_code == 200
     assert r.json() == {"message": "success"} and 'prediction' in r.json()
 

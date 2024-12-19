@@ -16,9 +16,9 @@ Udacity devops ml model card - study only
 ## Metrics
 
 ```
-Precision: 0.7391640866873065
-Recall: 0.6074097630783909
-F1: 0.6668412324343196
+Precision: 0.9998406374501992
+Recall: 0.9996813256851498
+F1: 0.999760975221098
 ```
 
 ## Ethical Considerations
