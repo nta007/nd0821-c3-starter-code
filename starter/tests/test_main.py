@@ -1,5 +1,15 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+import sys
+
 from fastapi.testclient import TestClient
-from main import app
+
+try:
+    from main import app
+except ImportError:
+    sys.path.append('./')
+    from main import app
 
 client = TestClient(app)
 
@@ -22,8 +32,9 @@ def test_predict():
         "hours-per-week": 40
     }
     r = client.post("/predict", json=data)
+
     assert r.status_code == 200
-    assert r.json() == {"message": "success"} and 'prediction' in r.json()
+    assert r.json()['prediction'] == 1
 
 
 def test_hello_world():

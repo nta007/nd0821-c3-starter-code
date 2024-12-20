@@ -1,14 +1,15 @@
-from cgitb import handler
-
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import uvicorn
 import pandas as pd
-import pickle
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from starter.ml import model
 from starter.ml.data import process_data
-from starter.const import cat_features
+from starter.const import cat_features, stored_model_filepath
 from starter.ml.model import load_model
 
 
@@ -55,8 +56,7 @@ class PredictData(BaseModel):
             }}
 
 
-encoder, lb, trained_model = load_model('./model/model.pkl')
-
+encoder, lb, trained_model = load_model(stored_model_filepath)
 app = FastAPI(version="1.0.1", title="Udacity DevOps ML API",
               description="API for ML model", debug=True)
 
@@ -79,10 +79,11 @@ async def predict(pred: PredictData):
     # compute prediction
     try:
         prediction = model.inference(trained_model, X)
-        return {"message": "success", "prediction": prediction}
+        rs = int(prediction[0])
+        return {"message": "success", "prediction": rs}
     except Exception as e:
         return {"message": "error", "error": str(e)}
 
 
 if __name__ == "__main__":
-    uvicorn.run('main:app', host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run('main:app', host="0.0.0.0", port=8000, reload=True, env_file='.env')

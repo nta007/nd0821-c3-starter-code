@@ -2,7 +2,6 @@
 import pickle
 
 from sklearn.metrics import fbeta_score, precision_score, recall_score
-from sklearn.pipeline import make_pipeline
 from sklearn.ensemble import RandomForestClassifier
 
 

@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 
 from starter.const import cat_features, stored_model_filepath, \
-    metrics_output_filepath
+    metrics_output_filepath, data_cleaned_filepath
 from starter.ml import model
 from starter.ml.data import process_data
 
@@ -11,14 +11,14 @@ from starter.ml.data import process_data
 import pickle
 
 # Add code to load in the data.
-data = pd.read_csv("../data/census_cleaned.csv")
+data = pd.read_csv(data_cleaned_filepath)
 
 # Optional enhancement, use K-fold cross validation instead of
 # a train-test split.
 train, test = train_test_split(data, test_size=0.20)
 
 X_train, y_train, encoder, lb = process_data(
-    train, categorical_features=cat_features, label="salary", training=True
+    X=train, categorical_features=cat_features, label="salary", training=True
 )
 
 # Proces the test data with the process_data function.
