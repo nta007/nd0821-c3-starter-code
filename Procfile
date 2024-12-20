@@ -1,0 +1,1 @@
+web: cd starter && python3 main.py
